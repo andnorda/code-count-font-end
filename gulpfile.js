@@ -56,7 +56,7 @@ gulp.task('connect', ['build'], function() {
 });
 
 gulp.task('serve', ['connect', 'watch'], function() {
-	require('opn')('http://localhost:9000');
+	require('opn')('http://localhost');
 });
 
 gulp.task('clean', require('del').bind(null, ['dist']));
