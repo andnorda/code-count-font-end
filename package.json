@@ -1,0 +1,45 @@
+{
+  "name": "code-count-front-end",
+  "version": "1.0.0",
+  "description": "front end for code count",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andnorda/code-count-front-end.git"
+  },
+  "author": "Andreas Nordahl <andnorda@gmail.com>",
+  "license": "ISC",
+  "private": true,
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "browserify": {
+    "transform": ["hbsfy"]
+  },
+  "devDependencies": {
+    "browserify": "^8.0.1",
+    "connect": "^3.3.3",
+    "connect-livereload": "^0.5.2",
+    "del": "^1.1.1",
+    "gulp": "^3.8.10",
+    "gulp-jshint": "^1.9.0",
+    "gulp-less": "^1.3.8",
+    "gulp-livereload": "^3.0.2",
+    "gulp-util": "^3.0.1",
+    "handlebars": "^2.0.0",
+    "hbsfy": "^2.2.1",
+    "jshint-stylish": "^1.0.0",
+    "opn": "^1.0.1",
+    "serve-index": "^1.5.3",
+    "serve-static": "^1.7.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.0.0"
+  },
+  "dependencies": {
+    "backbone": "^1.1.2",
+    "jquery": "^2.1.3"
+  }
+}
