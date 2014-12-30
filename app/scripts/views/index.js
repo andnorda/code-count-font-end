@@ -16,7 +16,7 @@ module.exports = Backbone.View.extend({
 	onFormSubmit: function(event) {
 		event.preventDefault();
 		var query = this.$(event.target).find('input').val();
-		app.router.navigate('stats?q=' + query, {trigger: true});
+		app.router.navigate('stats?q=' + encodeURIComponent(query), {trigger: true});
 	},
 	
 	render: function() {
