@@ -4,6 +4,7 @@ var Backbone = require('backbone');
 var SearchModel = require('./models/search');
 var IndexView = require('./views/index');
 
+var StatsModel = require('./models/stats');
 var StatsView = require('./views/stats');
 
 module.exports = Backbone.Router.extend({
@@ -21,10 +22,13 @@ module.exports = Backbone.Router.extend({
 	},
 
 	stats: function(query) {
-		var model = new Backbone.Model();
-		model.set('query', query);
+		var statsModel = new StatsModel({
+			query: query
+		});
+		statsModel.fetch();
+
 		var statsView = new StatsView({
-			model: model
+			model: statsModel
 		});
 		statsView.render();
 		$('#app').html(statsView.el);
