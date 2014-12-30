@@ -18,10 +18,7 @@ module.exports = Backbone.Model.extend({
 
 		response.files = this.get('files');
 		files.forEach(function(file) {
-			response.files.add(new FileModel({
-				name: file.name,
-				length: file.length
-			}));
+			response.files.add(new FileModel(file));
 		});
 
 		return response;
