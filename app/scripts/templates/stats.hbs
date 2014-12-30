@@ -1,1 +1,7 @@
-<h1>query: {{query}}</h1>
+<h1>{{name}}</h1>
+<p>Total number of files: {{totalFileCount}}</p>
+<ul>
+{{#each files}}
+	<li>{{name}}: {{length}}</li>
+{{/each}}
+</ul>
