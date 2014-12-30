@@ -1,5 +1,6 @@
 var Backbone = require('backbone');
 var app = require('../app');
+var FileView = require('./file');
 var template = require('../templates/stats.hbs');
 
 module.exports = Backbone.View.extend({
@@ -8,11 +9,19 @@ module.exports = Backbone.View.extend({
 	initialize: function() {
 		this.listenTo(this.model, 'change', this.render);
 	},
+
+	addAll: function(models) {
+		models.setSizes();
+		models.forEach(function(model) {
+			this.$('ul.files').append(new FileView({
+				model: model
+			}).render().el);
+		}.bind(this));
+	},
 	
 	render: function() {
-		this.model.sortFiles('length');
-		this.model.setFileSizes('length');
 		this.$el.html(template(this.model.toJSON()));
+		this.addAll(this.model.get('files'));
 		return this;
 	}
 });
