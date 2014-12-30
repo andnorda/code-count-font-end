@@ -8,7 +8,6 @@ module.exports = Backbone.View.extend({
 
 	initialize: function() {
 		this.listenTo(this.model, 'change', this.render);
-		this.listenTo(this.model.get('files'), 'all', function(e) {console.log(e);});
 		this.listenTo(this.model.get('files'), 'remove', this.render);
 	},
 
@@ -22,7 +21,6 @@ module.exports = Backbone.View.extend({
 	},
 	
 	render: function() {
-		console.log('render stats');
 		this.$el.html(template(this.model.toJSON()));
 		this.addAll(this.model.get('files'));
 		return this;
