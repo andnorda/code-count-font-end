@@ -5,8 +5,16 @@ module.exports = Backbone.View.extend({
 	tag: 'li',
 	className: 'file',
 
+	events: {
+		'click': 'onClick'
+	},
+
 	initialize: function() {
 		this.listenTo(this.model, 'change', this.render);
+	},
+
+	onClick: function() {
+		this.model.destroy();
 	},
 	
 	render: function() {
