@@ -8,6 +8,15 @@ body {
 	margin: 0;
 }
 
+ul {
+	padding: 0;
+	margin: 0;
+}
+
+li {
+	list-style: none;
+}
+
 #app {
 	display: flex;
 	height: 100%;
@@ -39,3 +48,73 @@ body {
 		}
 	}
 }
+
+ul.files {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.file {
+	display: flex;
+	flex-direction: column;
+	width: 128px;
+	height: 128px;
+	position: relative;
+	border: solid 1px black;
+
+	.name {
+		font-size: 10px;
+		text-align: center;
+	}
+
+	.circle {
+		margin: auto;
+		display: block;
+		border-radius: 50%;
+		background-color: blue;
+
+		&:hover {
+			background-color: lighten(blue, 10%);
+		}
+	}
+
+	&:nth-child(5n) {
+		.circle {
+			background-color: red;
+
+			&:hover {
+				background-color: lighten(red, 10%);
+			}
+		}
+	}
+	&:nth-child(5n + 1) {
+		.circle {
+			background-color: green;
+
+			&:hover {
+				background-color: lighten(green, 10%);
+			}
+		}
+	}
+
+	&:nth-child(5n + 2) {
+		.circle {
+			background-color: yellow;
+
+			&:hover {
+				background-color: lighten(yellow, 20%);
+			}
+		}
+	}
+
+	&:nth-child(5n + 3) {
+		.circle {
+			background-color: purple;
+
+			&:hover {
+				background-color: lighten(purple, 10%);
+			}
+		}
+	}
+}
+

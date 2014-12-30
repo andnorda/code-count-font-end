@@ -1,7 +1,9 @@
 <h1>{{name}}</h1>
-<p>Total number of files: {{totalFileCount}}</p>
-<ul>
+<ul class="files">
 {{#each files}}
-	<li>{{name}}: {{length}}</li>
+	<li class="file">
+		<span class="circle" style="width: {{size}}; height: {{size}};"></span>
+		<span class="name">{{name}}</span>
+	</li>
 {{/each}}
 </ul>

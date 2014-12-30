@@ -10,6 +10,8 @@ module.exports = Backbone.View.extend({
 	},
 	
 	render: function() {
+		this.model.sortFiles('length');
+		this.model.setFileSizes('length');
 		this.$el.html(template(this.model.toJSON()));
 		return this;
 	}
