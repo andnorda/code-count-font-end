@@ -7,10 +7,14 @@ var IndexView = require('./views/index');
 var StatsModel = require('./models/stats');
 var StatsView = require('./views/stats');
 
+var CommitCollection = require('./collections/commit');
+var TimelineView = require('./views/timeline');
+
 module.exports = Backbone.Router.extend({
 	routes: {
 		'': 'index',
-		'stats?q=:query': 'stats'
+		'stats?q=:query': 'stats',
+		'timeline?repo=:repo': 'timeline'
 	},
 
 	index: function() {
@@ -32,5 +36,17 @@ module.exports = Backbone.Router.extend({
 		});
 		statsView.render();
 		$('#app').html(statsView.el);
+	},
+
+	timeline: function(repo) {
+		var commits = new CommitCollection({
+			repo: repo
+		});
+		commits.fetch();
+		var timelineView = new TimelineView({
+			collection: commits
+		});
+		timelineView.render();
+		$('#app').html(timelineView.el);
 	}
 });
