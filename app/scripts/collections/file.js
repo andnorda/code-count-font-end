@@ -9,7 +9,6 @@ module.exports = Backbone.Collection.extend({
 
 	setSizes: function() {
 		var max = this.reduce(function(prev, current) {
-			console.log(current);
 			return current.get(this.sortField) > prev ?
 				current.get(this.sortField) : prev;
 		}.bind(this), 0);

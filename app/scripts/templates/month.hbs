@@ -1,5 +1,5 @@
-<h2>{{month}}</h2>
-<table>
+<h2>{{name}}</h2>
+<table class="month{{month}}">
 	<thead>
 		<th>#</th>
 		<th>M</th>
@@ -15,7 +15,7 @@
 			<tr>
 				<th>{{week}}</th>
 				{{#each days}}
-					<td>{{this.getDate}}</td>
+					<td class="day{{this}}" data-commits="0">{{this}}</td>
 				{{/each}}
 			</tr>
 		{{/each}}

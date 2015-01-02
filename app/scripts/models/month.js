@@ -2,9 +2,13 @@ var Backbone = require('backbone');
 var _ = require('lodash');
 
 module.exports = Backbone.Model.extend({
+	idAttribute: 'month',
+
 	initialize: function(attributes) {
 		var year = attributes.year;
-		var month = [
+		var month = attributes.month;
+
+		this.set('name', [
 			'January',
 			'February',
 			'March',
@@ -17,16 +21,16 @@ module.exports = Backbone.Model.extend({
 			'Oktober',
 			'November',
 			'December'
-		].indexOf(attributes.month);
+		][month]);
 		
 		var weeks = [];
 		
 		var date = new Date(year, month, 1);
-		var weekNumber = this.getWeekNumber(date);	
+		var weekNumber = date.getWeek();	
 		var prev = weekNumber;
 		var index = 0;
 		while (date.getMonth() === month) {
-			weekNumber = this.getWeekNumber(date);
+			weekNumber = date.getWeek();
 			if (weekNumber !== prev) {
 				index++;
 				prev = weekNumber;
@@ -37,18 +41,11 @@ module.exports = Backbone.Model.extend({
 					days: new Array(7)
 				};
 			}
-			weeks[index].days[(date.getDay()+6)%7] = new Date(date);
+			weeks[index].days[(date.getDay()+6)%7] = date.getDate();
 
 			date.setDate(date.getDate() + 1);
 		}
 
 		this.set('weeks', weeks);
-	},
-
-	getWeekNumber: function(date) {
-	    var d = new Date(+date);
-	    d.setHours(0,0,0);
-	    d.setDate(d.getDate()+4-(d.getDay()||7));
-	    return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
 	}
 });
