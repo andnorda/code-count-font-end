@@ -41,7 +41,6 @@ module.exports = Backbone.Model.extend({
 
 			date.setDate(date.getDate() + 1);
 		}
-		console.log(this);
 
 		this.set('weeks', weeks);
 	},

@@ -14,9 +14,6 @@ module.exports = Backbone.Collection.extend({
 				current.get(this.sortField) : prev;
 		}.bind(this), 0);
 
-		console.log(max);
-		console.log(this.sortField);
-
 		if (max > 0) {
 			this.forEach(function(model) {
 				model.set('size', model.get(this.sortField) * 100 / max + 'px');

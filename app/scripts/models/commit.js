@@ -2,7 +2,6 @@ var Backbone = require('backbone');
 
 module.exports = Backbone.Model.extend({
 	cx: function() {
-		console.log(this.min());
 		return 100 * (this.get('timestamp') - this.min()) /
 			(this.max() - this.min()) + '%';
 	},

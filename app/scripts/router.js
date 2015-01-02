@@ -18,7 +18,7 @@ module.exports = Backbone.Router.extend({
 		'': 'index',
 		'stats?q=:query': 'stats',
 		'timeline?repo=:repo': 'timeline',
-		'calendar/:year': 'calendar'
+		'calendar?q=:query': 'calendar'
 	},
 
 	index: function() {
@@ -54,12 +54,17 @@ module.exports = Backbone.Router.extend({
 		$('#app').html(timelineView.el);
 	},
 
-	calendar: function(year) {
+	calendar: function(repo) {
+		var commits = new CommitCollection({
+			repo: repo
+		});
+		commits.fetch();
 		var calendarModel = new CalendarModel({
-			year: year
+			year: 2015
 		});
 		$('#app').html(new CalendarView({
-			model: calendarModel
+			model: calendarModel,
+			collection: commits
 		}).render().el);
 	}
 });
