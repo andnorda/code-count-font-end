@@ -10,11 +10,15 @@ var StatsView = require('./views/stats');
 var CommitCollection = require('./collections/commit');
 var TimelineView = require('./views/timeline');
 
+var CalendarModel = require('./models/calendar');
+var CalendarView = require('./views/calendar');
+
 module.exports = Backbone.Router.extend({
 	routes: {
 		'': 'index',
 		'stats?q=:query': 'stats',
-		'timeline?repo=:repo': 'timeline'
+		'timeline?repo=:repo': 'timeline',
+		'calendar/:year': 'calendar'
 	},
 
 	index: function() {
@@ -48,5 +52,14 @@ module.exports = Backbone.Router.extend({
 		});
 		timelineView.render();
 		$('#app').html(timelineView.el);
+	},
+
+	calendar: function(year) {
+		var calendarModel = new CalendarModel({
+			year: year
+		});
+		$('#app').html(new CalendarView({
+			model: calendarModel
+		}).render().el);
 	}
 });

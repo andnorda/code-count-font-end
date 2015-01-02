@@ -1,0 +1,23 @@
+<h2>{{month}}</h2>
+<table>
+	<thead>
+		<th>#</th>
+		<th>M</th>
+		<th>T</th>
+		<th>W</th>
+		<th>T</th>
+		<th>F</th>
+		<th>S</th>
+		<th>S</th>
+	</thead>
+	<tbody>
+		{{#each weeks}}
+			<tr>
+				<th>{{week}}</th>
+				{{#each days}}
+					<td>{{this.getDate}}</td>
+				{{/each}}
+			</tr>
+		{{/each}}
+	</tbody>
+</table>
