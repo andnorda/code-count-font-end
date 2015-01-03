@@ -13,12 +13,16 @@ var TimelineView = require('./views/timeline');
 var CalendarModel = require('./models/calendar');
 var CalendarView = require('./views/calendar');
 
+var ContributorCollection = require('./collections/contributor');
+var ContributorListView = require('./views/contributor-list');
+
 module.exports = Backbone.Router.extend({
 	routes: {
 		'': 'index',
 		'stats?q=:query': 'stats',
-		'timeline?repo=:repo': 'timeline',
-		'calendar/:year?q=:query': 'calendar'
+		'timeline?q=:query': 'timeline',
+		'calendar/:year?q=:query': 'calendar',
+		'contributors?q=:qurey': 'contributors'
 	},
 
 	index: function() {
@@ -42,9 +46,9 @@ module.exports = Backbone.Router.extend({
 		$('#app').html(statsView.el);
 	},
 
-	timeline: function(repo) {
+	timeline: function(query) {
 		var commits = new CommitCollection({
-			repo: repo
+			repo: query
 		});
 		commits.fetch();
 		var timelineView = new TimelineView({
@@ -54,9 +58,9 @@ module.exports = Backbone.Router.extend({
 		$('#app').html(timelineView.el);
 	},
 
-	calendar: function(year, repo) {
+	calendar: function(year, query) {
 		var commits = new CommitCollection({
-			repo: repo
+			repo: query
 		});
 		commits.fetch();
 		var calendarModel = new CalendarModel({
@@ -66,5 +70,16 @@ module.exports = Backbone.Router.extend({
 			model: calendarModel,
 			collection: commits
 		}).render().el);
+	},
+
+	contributors: function(query) {
+		var contributors = new ContributorCollection({
+			repo: query
+		});
+		contributors.fetch();
+		var contributorListView = new ContributorListView({
+			collection: contributors
+		});
+		$('#app').html(contributorListView.render().el);
 	}
 });
