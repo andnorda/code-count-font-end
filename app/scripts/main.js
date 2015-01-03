@@ -1,3 +1,5 @@
+require('./handlebars-helpers');
+
 var $ = require('jquery');
 var Backbone = require('backbone');
 Backbone.$ = $;
@@ -5,3 +7,4 @@ Backbone.$ = $;
 var app = require('./app');
 
 Backbone.history.start();
+

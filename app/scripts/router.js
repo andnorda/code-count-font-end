@@ -4,6 +4,8 @@ var Backbone = require('backbone');
 var SearchModel = require('./models/search');
 var IndexView = require('./views/index');
 
+var Overview = require('./views/overview');
+
 var StatsModel = require('./models/stats');
 var StatsView = require('./views/stats');
 
@@ -19,10 +21,11 @@ var ContributorListView = require('./views/contributor-list');
 module.exports = Backbone.Router.extend({
 	routes: {
 		'': 'index',
-		'stats?q=:query': 'stats',
-		'timeline?q=:query': 'timeline',
-		'calendar/:year?q=:query': 'calendar',
-		'contributors?q=:qurey': 'contributors'
+		'overview?repo=:repo': 'overview',
+		'stats?repo=:repo': 'stats',
+		'timeline?repo=:repo': 'timeline',
+		'calendar/:year?repo=:repo': 'calendar',
+		'contributors?repo=:repo': 'contributors'
 	},
 
 	index: function() {
@@ -33,9 +36,18 @@ module.exports = Backbone.Router.extend({
 		$('#app').html(indexView.el);
 	},
 
-	stats: function(query) {
+	overview: function(repo) {
+	    var overview = new Overview({
+	        model: new Backbone.Model({
+	            repo: repo
+	        })
+	    });
+	    $('#app').html(overview.render().el);
+	},
+
+	stats: function(repo) {
 		var statsModel = new StatsModel({
-			query: query
+			repo: repo
 		});
 		statsModel.fetch();
 
@@ -46,9 +58,9 @@ module.exports = Backbone.Router.extend({
 		$('#app').html(statsView.el);
 	},
 
-	timeline: function(query) {
+	timeline: function(repo) {
 		var commits = new CommitCollection({
-			repo: query
+			repo: repo
 		});
 		commits.fetch();
 		var timelineView = new TimelineView({
@@ -58,9 +70,9 @@ module.exports = Backbone.Router.extend({
 		$('#app').html(timelineView.el);
 	},
 
-	calendar: function(year, query) {
+	calendar: function(year, repo) {
 		var commits = new CommitCollection({
-			repo: query
+			repo: repo
 		});
 		commits.fetch();
 		var calendarModel = new CalendarModel({
@@ -72,9 +84,9 @@ module.exports = Backbone.Router.extend({
 		}).render().el);
 	},
 
-	contributors: function(query) {
+	contributors: function(repo) {
 		var contributors = new ContributorCollection({
-			repo: query
+			repo: repo
 		});
 		contributors.fetch();
 		var contributorListView = new ContributorListView({
