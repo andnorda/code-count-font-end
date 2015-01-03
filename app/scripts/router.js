@@ -1,3 +1,4 @@
+'use strict';
 var $ = require('jquery');
 var Backbone = require('backbone');
 
@@ -18,6 +19,9 @@ var CalendarView = require('./views/calendar');
 var ContributorCollection = require('./collections/contributor');
 var ContributorListView = require('./views/contributor-list');
 
+var InterdependencyCollection = require('./collections/interdependencies');
+var EdgeBundlingView = require('./views/edge-bundling');
+
 module.exports = Backbone.Router.extend({
 	routes: {
 		'': 'index',
@@ -25,7 +29,8 @@ module.exports = Backbone.Router.extend({
 		'stats?repo=:repo': 'stats',
 		'timeline?repo=:repo': 'timeline',
 		'calendar/:year?repo=:repo': 'calendar',
-		'contributors?repo=:repo': 'contributors'
+		'contributors?repo=:repo': 'contributors',
+		'edge-bundling?repo=:repo': 'edgeBundling'
 	},
 
 	index: function() {
@@ -93,5 +98,18 @@ module.exports = Backbone.Router.extend({
 			collection: contributors
 		});
 		$('#app').html(contributorListView.render().el);
+	},
+
+	edgeBundling: function(repo) {
+        var interdependencies = new InterdependencyCollection({
+            repo: repo
+        });
+
+	    var edgeBundlingView = new EdgeBundlingView({
+	        collection: interdependencies
+	    });
+	    $('#app').html(edgeBundlingView.render().el);
+
+        interdependencies.fetch();
 	}
 });

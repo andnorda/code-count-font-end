@@ -1,3 +1,4 @@
+'use strict';
 var Backbone = require('backbone');
 var app = require('../app');
 var template = require('../templates/index.hbs');

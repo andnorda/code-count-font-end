@@ -1,3 +1,4 @@
+'use strict';
 var Handlebars = require('hbsfy/runtime');
 
 Handlebars.registerHelper('urlencode', function(s) {

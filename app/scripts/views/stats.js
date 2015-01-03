@@ -1,5 +1,5 @@
+'use strict';
 var Backbone = require('backbone');
-var app = require('../app');
 var FileView = require('./file');
 var template = require('../templates/stats.hbs');
 

@@ -1,4 +1,5 @@
 {
+    "expr": false,
     "node": true,
     "browser": true,
     "esnext": true,
@@ -18,14 +19,7 @@
     "strict": true,
     "trailing": true,
     "smarttabs": true,
-    "jquery": true,
     "globals": {
-        "ConfigFrontEnd": true,
-        "configfrontend": true,
-        "_": false,
-        "Backbone": false,
-        "JST": false,
-        "beforeEach": false,
         "describe": false,
         "it": false,
         "assert": true,

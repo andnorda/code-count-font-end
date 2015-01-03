@@ -1,3 +1,4 @@
+'use strict';
 var Backbone = require('backbone');
 var FileModel = require('./file');
 var FileCollection = require('../collections/file');
@@ -13,7 +14,7 @@ module.exports = Backbone.Model.extend({
 		return '/rest/stats?repo=' + this.id;
 	},
 
-	parse: function(response, options) {
+	parse: function(response) {
 		var files = response.files;
 
 		response.files = this.get('files');

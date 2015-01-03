@@ -1,3 +1,4 @@
+'use strict';
 var Backbone = require('backbone');
 var d3 = require('d3');
 var template = require('../templates/timeline.hbs');
@@ -9,9 +10,9 @@ module.exports = Backbone.View.extend({
 
 	d3: function() {
 		var svg = d3.select('svg');
-		var circle = svg.selectAll("circle")
+		var circle = svg.selectAll('circle')
 			.data(this.collection.models);
-		var circleEnter = circle.enter().append('circle');
+		circle.enter().append('circle');
 		circle.attr('r', 1);
 		circle.attr('cy', '50%');
 		circle.attr('cx', function(d) {
