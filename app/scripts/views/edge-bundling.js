@@ -55,9 +55,11 @@ module.exports = Backbone.View.extend({
             if (!node) {
               node = map[name] = data || {name: name, children: []};
               if (name.length) {
-                node.parent = find(name.substring(0, i = name.lastIndexOf('.')));
+                node.parent = find(name.substring(0, i = name.lastIndexOf('/')));
                 node.parent.children.push(node);
                 node.key = name.substring(i + 1);
+                node.name = name.substring(i + 1);
+                node.path = node.path || node.name;
               }
             }
             if (!node.children) {
@@ -67,7 +69,7 @@ module.exports = Backbone.View.extend({
           }
 
           classes.forEach(function(d) {
-            find(d.name, d);
+            find(d.path, d);
           });
 
           return map[''];
@@ -80,14 +82,14 @@ module.exports = Backbone.View.extend({
 
           // Compute a map from name to node.
           nodes.forEach(function(d) {
-            map[d.name] = d;
+            map[d.path] = d;
           });
 
           // For each import, construct a link from the source to target node.
           nodes.forEach(function(d) {
-            if (d.imports) {
-                d.imports.forEach(function(i) {
-                  imports.push({source: map[d.name], target: map[i]});
+            if (d.interdependencies) {
+                d.interdependencies.forEach(function(i) {
+                  imports.push({source: map[d.path], target: map[d.parent.path + '/' + i]});
                 });
             }
           });
