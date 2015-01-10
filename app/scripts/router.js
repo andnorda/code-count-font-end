@@ -7,9 +7,6 @@ var IndexView = require('./views/index');
 
 var Overview = require('./views/overview');
 
-var StatsModel = require('./models/stats');
-var StatsView = require('./views/stats');
-
 var CommitCollection = require('./collections/commit');
 var TimelineView = require('./views/timeline');
 
@@ -22,15 +19,18 @@ var ContributorListView = require('./views/contributor-list');
 var InterdependencyCollection = require('./collections/interdependencies');
 var EdgeBundlingView = require('./views/edge-bundling');
 
+var FileCollection = require('./collections/file');
+var LineCountView = require('./views/line-count');
+
 module.exports = Backbone.Router.extend({
 	routes: {
 		'': 'index',
 		'overview?repo=:repo': 'overview',
-		'stats?repo=:repo': 'stats',
 		'timeline?repo=:repo': 'timeline',
 		'calendar/:year?repo=:repo': 'calendar',
 		'contributors?repo=:repo': 'contributors',
-		'edge-bundling?repo=:repo': 'edgeBundling'
+		'edge-bundling?repo=:repo': 'edgeBundling',
+		'line-count': 'lineCount'
 	},
 
 	index: function() {
@@ -48,19 +48,6 @@ module.exports = Backbone.Router.extend({
 	        })
 	    });
 	    $('#app').html(overview.render().el);
-	},
-
-	stats: function(repo) {
-		var statsModel = new StatsModel({
-			repo: repo
-		});
-		statsModel.fetch();
-
-		var statsView = new StatsView({
-			model: statsModel
-		});
-		statsView.render();
-		$('#app').html(statsView.el);
 	},
 
 	timeline: function(repo) {
@@ -111,5 +98,18 @@ module.exports = Backbone.Router.extend({
 	    $('#app').html(edgeBundlingView.render().el);
 
         interdependencies.fetch();
+	},
+
+	lineCount: function(repo) {
+		var lineCounts = new FileCollection([], {
+			repo: repo
+		});
+
+		var lineCountView = new LineCountView({
+			collection: lineCounts
+		});
+		$('#app').html(lineCountView.render().el);
+
+		lineCounts.fetch();
 	}
 });
