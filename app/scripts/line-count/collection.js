@@ -1,6 +1,6 @@
 'use strict';
 var Backbone = require('backbone');
-var FileModel = require('../models/file');
+var FileModel = require('./model');
 
 module.exports = Backbone.Collection.extend({
 	model: FileModel,

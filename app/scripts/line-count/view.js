@@ -1,7 +1,7 @@
 'use strict';
 var Backbone = require('backbone');
 var d3 = require('d3');
-var template = require('../templates/line-count.hbs');
+var template = require('./template.hbs');
 
 module.exports = Backbone.View.extend({
 	initialize: function() {
@@ -9,7 +9,8 @@ module.exports = Backbone.View.extend({
 	},
 
 	addCircles: function() {
-		var diameter = 500;
+		var diameter = 1000;
+        var color = d3.scale.category10();
 
 		var bubble = d3.layout.pack()
 				.sort(null)
@@ -20,10 +21,14 @@ module.exports = Backbone.View.extend({
 				.attr('width', diameter)
 				.attr('height', diameter);
 
+        var data = {
+            children: this.collection.toJSON().filter(function(model) {
+                return model.value > 0;
+            })
+        }
 		var node = svg.selectAll('.node')
-				.data(bubble.nodes({
-					children: this.collection.toJSON()
-				}))
+				.data(bubble.nodes(data)
+                    .filter(function(d) { return !d.children; }))
 			.enter().append('g')
 				.attr('class', 'node')
 				.attr('transform', function(d) {
@@ -35,14 +40,14 @@ module.exports = Backbone.View.extend({
 				return d.r;
 			})
 			.style('fill', function(d) {
-				return 'red';
+				return color(d.path.substring(d.path.lastIndexOf('.') + 1));
 			});
 
 		node.append('text')
 			.attr('dy', '.3em')
 			.style('text-anchor', 'middle')
 			.text(function(model) {
-				return model.path;
+				return model.name;
 			});
 	},
 	

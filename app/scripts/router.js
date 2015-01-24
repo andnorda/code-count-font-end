@@ -19,8 +19,8 @@ var ContributorListView = require('./views/contributor-list');
 var InterdependencyCollection = require('./collections/interdependencies');
 var EdgeBundlingView = require('./views/edge-bundling');
 
-var FileCollection = require('./collections/file');
-var LineCountView = require('./views/line-count');
+var FileCollection = require('./line-count/collection');
+var LineCountView = require('./line-count/view');
 
 module.exports = Backbone.Router.extend({
 	routes: {
