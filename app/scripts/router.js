@@ -30,7 +30,7 @@ module.exports = Backbone.Router.extend({
 		'calendar/:year?repo=:repo': 'calendar',
 		'contributors?repo=:repo': 'contributors',
 		'edge-bundling?repo=:repo': 'edgeBundling',
-		'line-count': 'lineCount'
+		'line-count?repo=:repo': 'lineCount'
 	},
 
 	index: function() {
@@ -101,7 +101,7 @@ module.exports = Backbone.Router.extend({
 	},
 
 	lineCount: function(repo) {
-		var lineCounts = new FileCollection([], {
+		var lineCounts = new FileCollection({
 			repo: repo
 		});
 

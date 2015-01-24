@@ -1,7 +1,8 @@
 var Backbone = require('backbone');
 
 module.exports = Backbone.Model.extend({
-	defaults: {
-		'size': '100px'
+	parse: function(response) {
+		response.value = response.lineCount;
+		return response;
 	}
 });
